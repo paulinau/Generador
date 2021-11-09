@@ -1,0 +1,16 @@
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.exe
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.deps.json
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.runtimeconfig.json
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.runtimeconfig.dev.json
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.dll
+D:\pauli\Documents\Generador\bin\Debug\net5.0\ref\Generador.dll
+D:\pauli\Documents\Generador\bin\Debug\net5.0\Generador.pdb
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.csproj.AssemblyReference.cache
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.GeneratedMSBuildEditorConfig.editorconfig
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.AssemblyInfoInputs.cache
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.AssemblyInfo.cs
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.csproj.CoreCompileInputs.cache
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.dll
+D:\pauli\Documents\Generador\obj\Debug\net5.0\ref\Generador.dll
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.pdb
+D:\pauli\Documents\Generador\obj\Debug\net5.0\Generador.genruntimeconfig.cache
