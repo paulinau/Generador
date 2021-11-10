@@ -11,10 +11,12 @@ namespace Generador
                 using (Lenguaje l = new Lenguaje("C:\\archivos\\c.gram"))
                 {
                     //instanciamos nuestra clase
-                    
-                    while(!l.finArchivo()){
+                    /*
+                    while(!l.finArchivo())
+                    {
                         l.nextToken();
-                    }
+                    }*/
+                    l.gramatica();
                     //l.Programa();
                 }
             }

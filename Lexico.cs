@@ -5,24 +5,25 @@ namespace Generador
 {
     class Lexico : Token, IDisposable
     {
-        protected StreamReader archivo;
+        private StreamReader archivo;
         protected StreamWriter bitacora;
+        protected StreamWriter lenguaje;
         protected int linea, caracter;
         const int F = -1;
         const int E = -2;
         string nombre_archivo;
         int[,] trand =  { //WS,L,-,>,\,;,?,(,),|,LA
-                            {0,1,2,10,4,10,10,10,10,10,10},
-                            {F,1,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,3,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,5,6,7,8,9,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F},
-                            {F,F,F,F,F,F,F,F,F,F,F },                          
+                            { 0, 1, 2, 10,4,10,10,10,10,10,10},
+                            { F, 1, F, F, F, F, F, F, F, F, F},
+                            { F, F, F,3, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, 5, 6, 7, 8, 9, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F },                          
                         };
 
         //Declaramos nuestro constructor
@@ -37,7 +38,9 @@ namespace Generador
             {
                 archivo = new StreamReader("C:\\archivos\\prueba.gram");
                 bitacora = new StreamWriter("C:\\archivos\\prueba.log");
+                lenguaje = new StreamWriter("C:\\archivos\\lenguaje.cs");
                 bitacora.AutoFlush = true;
+                lenguaje.AutoFlush = true;
 
                 DateTime fechaActual = DateTime.Now;
 
@@ -70,7 +73,9 @@ namespace Generador
 
                     string log = Path.ChangeExtension(nombre, ".log");
                     bitacora = new StreamWriter(log);
-                    bitacora.AutoFlush = true; 
+                    lenguaje = new StreamWriter("C:\\archivos\\lenguaje.cs");
+                    bitacora.AutoFlush = true;
+                    lenguaje.AutoFlush = true;
 
                     DateTime fechaActual = DateTime.Now;
                     string directorio = Path.GetDirectoryName(nombre);
@@ -103,6 +108,7 @@ namespace Generador
         {
             archivo.Close();
             bitacora.Close();
+            lenguaje.Close();
         }
 
         public void nextToken()
