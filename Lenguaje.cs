@@ -66,11 +66,31 @@ namespace Generador
         private void ListaSimbolos()
         {
             if(getClasificacion() == clasificaciones.snt)
+            {
+                lenguaje.WriteLine("            "+getContenido()+"();");
                 match(clasificaciones.snt);
-            else
+            }
+            else if (getClasificacion() == clasificaciones.st)
+            {
+                if(esClasificacion(getContenido()))
+                    lenguaje.WriteLine("            "+"match(clasificaciones."+getContenido()+");");
+                else
+                    lenguaje.WriteLine("            "+"match(\""+getContenido()+"\");");
                 match(clasificaciones.st);
+            }
+            else 
+            {
+                match("(");
+                ListaSimbolos();
+                match(")");
 
-            if(getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
+                if(getClasificacion() == clasificaciones.cerradura_epsilon)
+                {
+                    match(clasificaciones.cerradura_epsilon);
+                }
+            }
+
+            if(getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getContenido() !=")")
                 ListaSimbolos();
         }
 
