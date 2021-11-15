@@ -4,8 +4,8 @@ namespace Generador
     {
         public enum clasificaciones
         {
-            snt, st, flechita, fin_produccion, cerradura_epsilon, parentesis_derecho, parentesis_izquierdo,
-            or, 
+            snt, st, flechita, fin_produccion, cerradura_epsilon, parentesis_izquierdo, parentesis_derecho, 
+            or, corchete_izquierdo, corchete_derecho,
             /*
                 snt -> L+
                 st -> L+ | clasificaciones.tipo | caracter
@@ -14,6 +14,8 @@ namespace Generador
                 parentesis_derecho -> \(
                 parentesis_izquierdo -> \)
                 or -> \|
+                corchete_izquierdo -> \[
+                corchete_derecho -> \]
             */
         }
         private string contenido;

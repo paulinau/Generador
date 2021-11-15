@@ -13,9 +13,9 @@ namespace Generador
         const int E = -2;
         string nombre_archivo;
         int[,] trand =  { //WS,L,-,>,\,;,?,(,),|,LA
-                            { 0, 1, 2, 10,4,10,10,10,10,10,10},
+                            { 0, 1, 2,10, 4,10,10,10,10,10,10},
                             { F, 1, F, F, F, F, F, F, F, F, F},
-                            { F, F, F,3, F, F, F, F, F, F, F},
+                            { F, F, F, 3, F, F, F, F, F, F, F},
                             { F, F, F, F, F, F, F, F, F, F, F},
                             { F, F, F, F, F, 5, 6, 7, 8, 9, F},
                             { F, F, F, F, F, F, F, F, F, F, F},
