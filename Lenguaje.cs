@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-// Requerimiento 1: Agregar comentarios de linea y multilinea a nivel lexico (tendriamos que modificar la matriz)
-// Requerimiento 2: El proyecto se debe de llamar igual que el lenguaje (namespace C)
+// ✿
+// *    Requerimiento 1: Agregar comentarios de linea y multilinea a nivel lexico (tendriamos que modificar la matriz)
+// ✿   Requerimiento 2: El proyecto se debe de llamar igual que el lenguaje (namespace C)
 // Requerimiento 3: Indentar el codigo generado (tip: hacer una funcion para escribir y recibir como parametro cuantos tabuladores)
 //                  Escribe(int numeroTabs, string instruccion) cada que se habra una llave se suma uno al numero de tabs (a lo mejor manejarlo como atributo)
-// Requerimiento 4: En la cerradura epsilon considerar getClasificacion y getContenido
+// *✿   Requerimiento 4: En la cerradura epsilon considerar getClasificacion y getContenido
 // Requerimiento 5: Implementar el operador OR (modificar la matriz)
 
 /*
@@ -19,13 +20,16 @@ namespace Generador
 {
     class Lenguaje : Sintaxis
     {
+        private int num_tabuladores;
         public Lenguaje()
         {
+            num_tabuladores = 0;
             Console.WriteLine("Iniciando analisis gramatical.");
         }
 
         public Lenguaje(string nombre) : base(nombre)
         {
+            num_tabuladores = 0;
             Console.WriteLine("Iniciando analisis gramatical.");
         }
 
@@ -34,6 +38,7 @@ namespace Generador
         {
             match("lenguaje");
             match(":");
+            string nombre_namespace = getContenido();
 
             if(getClasificacion() == clasificaciones.snt)
                 match(clasificaciones.snt);
@@ -41,7 +46,7 @@ namespace Generador
                 match(clasificaciones.st);
             match(";");
 
-            Cabecera();
+            Cabecera(nombre_namespace);
             match("{");
             ListaProducciones();
             match("}");
@@ -85,7 +90,10 @@ namespace Generador
             else if(getClasificacion() == clasificaciones.parentesis_izquierdo)
             {
                 match(clasificaciones.parentesis_izquierdo);
-                lenguaje.WriteLine("            "+"if (getContenido() == \"" + getContenido() + "\")");
+                if(esClasificacion(getContenido()))
+                    lenguaje.WriteLine("            "+"if (getClasificacion() == " + getContenido() + ")");
+                else 
+                    lenguaje.WriteLine("            "+"if (getContenido() == \"" + getContenido() + "\")");
                 lenguaje.WriteLine("            {");
 
                 if(esClasificacion(getContenido()))
@@ -105,7 +113,10 @@ namespace Generador
             else if (getClasificacion() == clasificaciones.corchete_izquierdo)
             {
                 match(clasificaciones.corchete_izquierdo);
-                lenguaje.WriteLine("            "+"if (getContenido() == \"" + getContenido() + "\")");
+                if(esClasificacion(getContenido()))
+                    lenguaje.WriteLine("            "+"if (getClasificacion() == " + getContenido() + ")");
+                else 
+                    lenguaje.WriteLine("            "+"if (getContenido() == \"" + getContenido() + "\")");
                 lenguaje.WriteLine("            {");
 
                 if(esClasificacion(getContenido()))
@@ -132,13 +143,13 @@ namespace Generador
 
         }
 
-        private void Cabecera()
+        private void Cabecera(string nombre_namespace)
         {
             lenguaje.WriteLine("using System;");
             lenguaje.WriteLine("using System.Collections.Generic;");
             lenguaje.WriteLine("using System.Text;");
             lenguaje.WriteLine("");
-            lenguaje.WriteLine("namespace Generador");
+            lenguaje.WriteLine("namespace "+nombre_namespace);
             lenguaje.WriteLine("{");
             lenguaje.WriteLine("    public class Lenguaje: Sintaxis");
             lenguaje.WriteLine("    {");

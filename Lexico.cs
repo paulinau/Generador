@@ -12,18 +12,22 @@ namespace Generador
         const int F = -1;
         const int E = -2;
         string nombre_archivo;
-        int[,] trand =  { //WS,L,-,>,\,;,?,(,),|,LA
-                            { 0, 1, 2,10, 4,10,10,10,10,10,10},
-                            { F, 1, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, 3, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, 5, 6, 7, 8, 9, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F },                          
+        int[,] trand =  {  //WS, L, -, >, \, ;, ?, (, ), |,LA, /, *,EF,#10
+                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, F, F, F},
+                            { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, 5, 6, 7, 8, 9, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F,12,13, F, F},
+                            {12,12,12,12,12,12,12,12,12,12,12,12,12, 0, 0},
+                            {13,13,13,13,13,13,13,13,13,13,13,13,14, E,13},
+                            {13,13,13,13,13,13,13,13,13,13,13, 0,14, E,13},
                         };
 
         //Declaramos nuestro constructor
@@ -153,7 +157,7 @@ namespace Generador
             
             if (estado == E)
             {
-                
+                throw new Error(bitacora, "Error lexico: Se esperaba un cierre de comentario (*/). Linea: " + linea + ", caracter:" + caracter);
             }
             else if (getClasificacion() == clasificaciones.snt)
             {
@@ -198,6 +202,10 @@ namespace Generador
                     break;
                 case 9:
                     setClasificacion(clasificaciones.or);
+                    break;
+                case 12:
+                case 13:
+                case 14:
                     break;
             }
         }
@@ -244,6 +252,22 @@ namespace Generador
             else if(t == '|')
             {
                 return 9;
+            }
+            else if(t == '/')
+            {
+                return 11;
+            }
+            else if(t == '*')
+            {
+                return 12;
+            }
+            else if(finArchivo())
+            {
+                return 13;
+            }
+            else if(t == 10)
+            {
+                return 14;
             }
             else
             {
