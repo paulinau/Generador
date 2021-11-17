@@ -13,7 +13,7 @@ namespace Generador
         const int E = -2;
         string nombre_archivo;
         int[,] trand =  {  //WS, L, -, >, \, ;, ?, (, ), |,LA, /, *,EF,#10
-                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, F, F, F},
+                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, 0, F, 0},
                             { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F},
                             { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F},
                             { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
@@ -213,7 +213,15 @@ namespace Generador
         private int columna(char t)
         {
             //WS, L, -, >, \, ;, ?, (, ), |, LA
-            if(char.IsWhiteSpace(t))
+            if(finArchivo())
+            {
+                return 13;
+            }
+            else if(t == 10)
+            {
+                return 14;
+            }
+            else if(char.IsWhiteSpace(t))
             {
                 return 0;
             }
@@ -260,14 +268,6 @@ namespace Generador
             else if(t == '*')
             {
                 return 12;
-            }
-            else if(finArchivo())
-            {
-                return 13;
-            }
-            else if(t == 10)
-            {
-                return 14;
             }
             else
             {

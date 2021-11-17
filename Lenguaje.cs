@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 // ✿
-// *    Requerimiento 1: Agregar comentarios de linea y multilinea a nivel lexico (tendriamos que modificar la matriz)
+// ✿   Requerimiento 1: Agregar comentarios de linea y multilinea a nivel lexico (tendriamos que modificar la matriz)
 // ✿   Requerimiento 2: El proyecto se debe de llamar igual que el lenguaje (namespace C)
 // Requerimiento 3: Indentar el codigo generado (tip: hacer una funcion para escribir y recibir como parametro cuantos tabuladores)
 //                  Escribe(int numeroTabs, string instruccion) cada que se habra una llave se suma uno al numero de tabs (a lo mejor manejarlo como atributo)
@@ -145,6 +145,7 @@ namespace Generador
 
         private void Cabecera(string nombre_namespace)
         {
+            
             lenguaje.WriteLine("using System;");
             lenguaje.WriteLine("using System.Collections.Generic;");
             lenguaje.WriteLine("using System.Text;");
@@ -162,7 +163,37 @@ namespace Generador
             lenguaje.WriteLine("        {");
             lenguaje.WriteLine("            Console.WriteLine(\"Iniciando analisis gramatical.\");");
             lenguaje.WriteLine("        }");
+            /*
+            Escribe("using System;");
+            Escribe("using System.Collections.Generic;");
+            Escribe("using System.Text;");
+            Escribe("");
+            Escribe("namespace "+nombre_namespace);
+            Escribe("{");
+            Escribe("public class Lenguaje: Sintaxis");
+            Escribe("{");
+            Escribe("public Lenguaje()");
+            Escribe("{");
+            Escribe("Console.WriteLine(\"Iniciando analisis gramatical.\");");
+            Escribe("}");
+            Escribe("");
+            Escribe("public Lenguaje(string nombre): base(nombre)");
+            Escribe("{");
+            Escribe("Console.WriteLine(\"Iniciando analisis gramatical.\");");
+            Escribe("}");
+            */
         }
 
+        private void Escribe(string instruccion)
+        {
+            //lenguaje.WriteLine("");
+            for(int i=0; i<num_tabuladores; i++)
+            {
+                lenguaje.Write("\t");
+            }
+            lenguaje.WriteLine(instruccion);
+            if(instruccion.Contains("{"))
+                num_tabuladores++;
+        }
     }
 }
