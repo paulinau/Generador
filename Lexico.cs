@@ -12,22 +12,24 @@ namespace Generador
         const int F = -1;
         const int E = -2;
         string nombre_archivo;
-        int[,] trand =  {  //WS, L, -, >, \, ;, ?, (, ), |,LA, /, *,EF,#10
-                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, 0, F, 0},
-                            { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, 5, 6, 7, 8, 9, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F,12,13, F, F},
-                            {12,12,12,12,12,12,12,12,12,12,12,12,12, 0, 0},
-                            {13,13,13,13,13,13,13,13,13,13,13,13,14, E,13},
-                            {13,13,13,13,13,13,13,13,13,13,13, 0,14, E,13},
+        int[,] trand =  {  //WS, L, -, >, \, ;, ?, (, ), |,LA, /, *,EF,#10,[, ]
+                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, 0, F, 0,10,10},
+                            { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, 5, 6, 7, 8, 9, F, F, F, F, F,15,16},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F,12,13, F, F, F, F},
+                            {12,12,12,12,12,12,12,12,12,12,12,12,12, 0, 0, F, F},
+                            {13,13,13,13,13,13,13,13,13,13,13,13,14, E,13, F, F},
+                            {13,13,13,13,13,13,13,13,13,13,13, 0,14, E,13, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
                         };
 
         //Declaramos nuestro constructor
@@ -207,6 +209,12 @@ namespace Generador
                 case 13:
                 case 14:
                     break;
+                case 15:
+                    setClasificacion(clasificaciones.corchete_izquierdo);
+                    break;
+                case 16:
+                    setClasificacion(clasificaciones.corchete_derecho);
+                    break;
             }
         }
 
@@ -268,6 +276,14 @@ namespace Generador
             else if(t == '*')
             {
                 return 12;
+            }
+            else if(t == '[')
+            {
+                return 15;
+            }
+            else if(t == ']')
+            {
+                return 16;
             }
             else
             {
