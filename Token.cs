@@ -29,24 +29,24 @@ namespace Generador
                 case "numero":
                 case "asignacion":
                 case "inicializacion":
-                case "fin_sentencia":
-                case "operador_logico":
-                case "operador_relacional":
-                case "operador_termino":
-                case "operador_factor":
-                case "incremento_termino":
-                case "incremento_factor":
+                case "finSentencia":
+                case "operadorLogico":
+                case "operadorRelacional":
+                case "operadorTermino":
+                case "operadorFactor":
+                case "incrementoTermino":
+                case "incrementoFactor": 
                 case "cadena":
-                case "operador_ternario":
+                case "operadorTernario": 
                 case "caracter":
-                case "tipo_dato":
+                case "tipoDato":
                 case "zona":
                 case "condicion":
                 case "ciclo":
-                case "inicio_bloque":
-                case "fin_bloque":
-                case "flujo_entrada":
-                case "flujo_salida":
+                case "inicioBloque":
+                case "finBloque":
+                case "flujoEntrada":
+                case "flujoSalida":
                     return true;
             }
             return false;

@@ -7,7 +7,7 @@ using System.Text;
 // ✿   Requerimiento 2: El proyecto se debe de llamar igual que el lenguaje (namespace C)
 // ✿   Requerimiento 3: Indentar el codigo generado (tip: hacer una funcion para escribir y recibir como parametro cuantos tabuladores)
 //                  Escribe(int numeroTabs, string instruccion) cada que se habra una llave se suma uno al numero de tabs (a lo mejor manejarlo como atributo)
-// *✿   Requerimiento 4: En la cerradura epsilon considerar getClasificacion y getContenido
+// ✿   Requerimiento 4: En la cerradura epsilon considerar getClasificacion y getContenido
 // Requerimiento 5: Implementar el operador OR (modificar la matriz) (lista de simbolos o una lista de simbolos), se pone entre corchetes
 //                  agregar corchete derecho e izquierdo en la matriz ListaORs tiene simbolos terminales separados por comas
 
@@ -15,6 +15,7 @@ using System.Text;
     lenguaje -> lenguaje:identificador; { ListaProducciones }
     ListaProducciones -> snt flechita ListaSimbolos fin_produccion ListaProducciones?
     ListaSimbolos -> snt | st ListaSimbolos?
+    ListaORs -> st (| ListaORs)?
 */
 
 namespace Generador
@@ -121,11 +122,18 @@ namespace Generador
         private void ListaORs()
         {
             // if(hola == 1 || queso == webos) este o este
-            // if(hola == 1 || queso == webos || numero == 2 || pollo == frito) este o este o este o este
+            // if(hola == 1 || queso == 6 || numero == 2 || pollo == frito) este o este o este o este
             // generar los ORs
             // Generar "else ifs" y el ultimo simbolo debe ser "else"
-
-            
+            if(getClasificacion() == clasificaciones.st)
+            {
+                If();
+            }
+            if(getClasificacion() == clasificaciones.or)
+            {
+                Escribe("else");
+                ListaORs();
+            }
         }
 
         private void Cabecera(string nombre_namespace)
