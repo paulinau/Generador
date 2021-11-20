@@ -8,7 +8,7 @@ using System.Text;
 // ✿   Requerimiento 3: Indentar el codigo generado (tip: hacer una funcion para escribir y recibir como parametro cuantos tabuladores)
 //                  Escribe(int numeroTabs, string instruccion) cada que se habra una llave se suma uno al numero de tabs (a lo mejor manejarlo como atributo)
 // ✿   Requerimiento 4: En la cerradura epsilon considerar getClasificacion y getContenido
-// Requerimiento 5: Implementar el operador OR (modificar la matriz) (lista de simbolos o una lista de simbolos), se pone entre corchetes
+// ✿   Requerimiento 5: Implementar el operador OR (modificar la matriz) (lista de simbolos o una lista de simbolos), se pone entre corchetes
 //                  agregar corchete derecho e izquierdo en la matriz ListaORs tiene simbolos terminales separados por comas
 
 /*
@@ -93,8 +93,7 @@ namespace Generador
             {
                 match(clasificaciones.parentesis_izquierdo);
                 If();
-                match(clasificaciones.st);
-
+                
                 if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
                     ListaSimbolos();
 
@@ -107,18 +106,11 @@ namespace Generador
             {
                 match(clasificaciones.corchete_izquierdo);
                 If();
-                //match(clasificaciones.st);
                 
-                //if (getClasificacion() == clasificaciones.or)
-                Console.WriteLine("aki llega");
                 if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.or)
-                {
-                    Console.WriteLine("aki llega x2");
                     ListaORs();
-                }
 
                 match(clasificaciones.corchete_derecho);
-                Escribe("}");
             }
 
             if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.parentesis_izquierdo || getClasificacion() == clasificaciones.corchete_izquierdo)
@@ -128,10 +120,9 @@ namespace Generador
         // ListaORs -> st (| ListaORs)?
         private void ListaORs()
         {
-            // if(hola == 1 || comida == 2) este o este
-            // if(hola == 1 || comida == 2 || mau == 3 || ivan == 4 || chochos == 5) este o este o este o este o este
             // Generar "else ifs" y el ultimo simbolo debe ser "else"
-            match(clasificaciones.st);
+            //string contenido2 = getContenido();
+            
             if (getClasificacion() == clasificaciones.or)
             {
                 match(clasificaciones.or);
@@ -142,7 +133,6 @@ namespace Generador
 
                 if (getClasificacion() == clasificaciones.or)
                 {
-                    //match(clasificaciones.st);
                     if (esClasificacion(contenido))
                         Escribe("else if (getClasificacion() == clasificaciones." + contenido + ")");
                     else
@@ -163,10 +153,9 @@ namespace Generador
                         Escribe("match(clasificaciones." + contenido + ");");
                     else
                         Escribe("match(\"" + contenido + "\");");
-                    //match(clasificaciones.st);
+                    Escribe("}");
                 }
             }
-            //Escribe("}");
         }
 
         private void Cabecera(string nombre_namespace)
@@ -216,6 +205,7 @@ namespace Generador
                 Escribe("match(clasificaciones." + getContenido() + ");");
             else
                 Escribe("match(\"" + getContenido() + "\");");
+            match(clasificaciones.st);
         }
     }
 }
