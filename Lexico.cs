@@ -13,23 +13,23 @@ namespace Generador
         const int E = -2;
         string nombre_archivo;
         int[,] trand =  {  //WS, L, -, >, \, ;, ?, (, ), |,LA, /, *,EF,#10,[, ]
-                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, 0, F, 0,10,10},
-                            { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, 5, 6, 7, 8, 9, F, F, F, F, F,15,16},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F,12,13, F, F, F, F},
-                            {12,12,12,12,12,12,12,12,12,12,12,12,12, 0, 0, F, F},
-                            {13,13,13,13,13,13,13,13,13,13,13,13,14, E,13, F, F},
-                            {13,13,13,13,13,13,13,13,13,13,13, 0,14, E,13, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
-                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},
+                            { 0, 1, 2,10, 4,10,10,10,10,10,10,11, 0, F, 0,10,10},//0
+                            { F, 1, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//1
+                            { F, F, F, 3, F, F, F, F, F, F, F, F, F, F, F, F, F},//2
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//3
+                            { F, F, F, F, F, 5, 6, 7, 8, 9, F, F, F, F, F,15,16},//4
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//5
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//6
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//7
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//8
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//9
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//10
+                            { F, F, F, F, F, F, F, F, F, F, F,12,13, F, F, F, F},//11
+                            {12,12,12,12,12,12,12,12,12,12,12,12,12, 0, 0,12,12},//12
+                            {13,13,13,13,13,13,13,13,13,13,13,13,14, E,13,13,13},//13
+                            {13,13,13,13,13,13,13,13,13,13,13, 0,14, E,13,13,13},//14
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//15
+                            { F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F},//16
                         };
 
         //Declaramos nuestro constructor

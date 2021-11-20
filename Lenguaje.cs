@@ -42,7 +42,7 @@ namespace Generador
             match(":");
             string nombre_namespace = getContenido();
 
-            if(getClasificacion() == clasificaciones.snt)
+            if (getClasificacion() == clasificaciones.snt)
                 match(clasificaciones.snt);
             else
                 match(clasificaciones.st);
@@ -59,7 +59,7 @@ namespace Generador
         // ListaProducciones -> snt flechita ListaSimbolos fin_produccion ListaProducciones?
         private void ListaProducciones()
         {
-            Escribe("public void "+getContenido() + "()");
+            Escribe("public void " + getContenido() + "()");
             match(clasificaciones.snt);
             match(clasificaciones.flechita);
 
@@ -69,32 +69,33 @@ namespace Generador
 
             match(clasificaciones.fin_produccion);
 
-            if(getClasificacion() == clasificaciones.snt)
+            if (getClasificacion() == clasificaciones.snt)
                 ListaProducciones();
         }
 
         // ListaSimbolos -> snt | st ListaSimbolos?
         private void ListaSimbolos()
         {
-            if(getClasificacion() == clasificaciones.snt)
+            if (getClasificacion() == clasificaciones.snt)
             {
-                Escribe(getContenido()+"();");
+                Escribe(getContenido() + "();");
                 match(clasificaciones.snt);
             }
             else if (getClasificacion() == clasificaciones.st)
             {
-                if(esClasificacion(getContenido()))
-                    Escribe("match(clasificaciones."+getContenido()+");");
+                if (esClasificacion(getContenido()))
+                    Escribe("match(clasificaciones." + getContenido() + ");");
                 else
-                    Escribe("match(\""+getContenido()+"\");");
+                    Escribe("match(\"" + getContenido() + "\");");
                 match(clasificaciones.st);
             }
-            else if(getClasificacion() == clasificaciones.parentesis_izquierdo)
+            else if (getClasificacion() == clasificaciones.parentesis_izquierdo)
             {
                 match(clasificaciones.parentesis_izquierdo);
                 If();
+                match(clasificaciones.st);
 
-                if(getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
+                if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
                     ListaSimbolos();
 
                 match(clasificaciones.parentesis_derecho);
@@ -106,34 +107,66 @@ namespace Generador
             {
                 match(clasificaciones.corchete_izquierdo);
                 If();
-
-                if(getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
+                //match(clasificaciones.st);
+                
+                //if (getClasificacion() == clasificaciones.or)
+                Console.WriteLine("aki llega");
+                if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.or)
+                {
+                    Console.WriteLine("aki llega x2");
                     ListaORs();
+                }
 
                 match(clasificaciones.corchete_derecho);
                 Escribe("}");
             }
 
-            if(getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.parentesis_izquierdo)
+            if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.parentesis_izquierdo || getClasificacion() == clasificaciones.corchete_izquierdo)
                 ListaSimbolos();
         }
 
         // ListaORs -> st (| ListaORs)?
         private void ListaORs()
         {
-            // if(hola == 1 || queso == webos) este o este
-            // if(hola == 1 || queso == 6 || numero == 2 || pollo == frito) este o este o este o este
-            // generar los ORs
+            // if(hola == 1 || comida == 2) este o este
+            // if(hola == 1 || comida == 2 || mau == 3 || ivan == 4 || chochos == 5) este o este o este o este o este
             // Generar "else ifs" y el ultimo simbolo debe ser "else"
-            if(getClasificacion() == clasificaciones.st)
+            match(clasificaciones.st);
+            if (getClasificacion() == clasificaciones.or)
             {
-                If();
+                match(clasificaciones.or);
+                Escribe("}");
+
+                string contenido = getContenido();
+                match(clasificaciones.st);
+
+                if (getClasificacion() == clasificaciones.or)
+                {
+                    //match(clasificaciones.st);
+                    if (esClasificacion(contenido))
+                        Escribe("else if (getClasificacion() == clasificaciones." + contenido + ")");
+                    else
+                        Escribe("else if (getContenido() == \"" + contenido + "\")");
+                    Escribe("{");
+                    if (esClasificacion(contenido))
+                        Escribe("match(clasificaciones." + contenido + ");");
+                    else
+                        Escribe("match(\"" + contenido + "\");");
+                    ListaORs();
+                }
+                else
+                {
+                    Escribe("else");
+                    Escribe("{");
+
+                    if (esClasificacion(contenido))
+                        Escribe("match(clasificaciones." + contenido + ");");
+                    else
+                        Escribe("match(\"" + contenido + "\");");
+                    //match(clasificaciones.st);
+                }
             }
-            if(getClasificacion() == clasificaciones.or)
-            {
-                Escribe("else");
-                ListaORs();
-            }
+            //Escribe("}");
         }
 
         private void Cabecera(string nombre_namespace)
@@ -142,7 +175,7 @@ namespace Generador
             Escribe("using System.Collections.Generic;");
             Escribe("using System.Text;");
             Escribe("");
-            Escribe("namespace "+nombre_namespace);
+            Escribe("namespace " + nombre_namespace);
             Escribe("{");
             Escribe("public class Lenguaje: Sintaxis");
             Escribe("{");
@@ -159,13 +192,13 @@ namespace Generador
 
         private void Escribe(string instruccion)
         {
-            if(instruccion == "}")
+            if (instruccion == "}")
                 num_tabuladores--;
 
-            for(int i=0; i<num_tabuladores; i++)
+            for (int i = 0; i < num_tabuladores; i++)
                 lenguaje.Write("\t");
 
-            if(instruccion == "{")
+            if (instruccion == "{")
                 num_tabuladores++;
 
             lenguaje.WriteLine(instruccion);
@@ -173,17 +206,16 @@ namespace Generador
 
         private void If()
         {
-            if(esClasificacion(getContenido()))
+            if (esClasificacion(getContenido()))
                 Escribe("if (getClasificacion() == clasificaciones." + getContenido() + ")");
-            else 
+            else
                 Escribe("if (getContenido() == \"" + getContenido() + "\")");
             Escribe("{");
 
-            if(esClasificacion(getContenido()))
-                Escribe("match(clasificaciones."+getContenido()+");");
+            if (esClasificacion(getContenido()))
+                Escribe("match(clasificaciones." + getContenido() + ");");
             else
-                Escribe("match(\""+getContenido()+"\");");
-            match(clasificaciones.st);
+                Escribe("match(\"" + getContenido() + "\");");
         }
     }
 }
