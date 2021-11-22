@@ -93,7 +93,8 @@ namespace Generador
             {
                 match(clasificaciones.parentesis_izquierdo);
                 If();
-                
+                match(clasificaciones.st);
+
                 if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st)
                     ListaSimbolos();
 
@@ -106,7 +107,8 @@ namespace Generador
             {
                 match(clasificaciones.corchete_izquierdo);
                 If();
-                
+                match(clasificaciones.st);
+
                 if (getClasificacion() == clasificaciones.snt | getClasificacion() == clasificaciones.st || getClasificacion() == clasificaciones.or)
                     ListaORs();
 
@@ -121,8 +123,6 @@ namespace Generador
         private void ListaORs()
         {
             // Generar "else ifs" y el ultimo simbolo debe ser "else"
-            //string contenido2 = getContenido();
-            
             if (getClasificacion() == clasificaciones.or)
             {
                 match(clasificaciones.or);
@@ -133,26 +133,14 @@ namespace Generador
 
                 if (getClasificacion() == clasificaciones.or)
                 {
-                    if (esClasificacion(contenido))
-                        Escribe("else if (getClasificacion() == clasificaciones." + contenido + ")");
-                    else
-                        Escribe("else if (getContenido() == \"" + contenido + "\")");
-                    Escribe("{");
-                    if (esClasificacion(contenido))
-                        Escribe("match(clasificaciones." + contenido + ");");
-                    else
-                        Escribe("match(\"" + contenido + "\");");
+                    If("else ", contenido);
                     ListaORs();
                 }
                 else
                 {
                     Escribe("else");
                     Escribe("{");
-
-                    if (esClasificacion(contenido))
-                        Escribe("match(clasificaciones." + contenido + ");");
-                    else
-                        Escribe("match(\"" + contenido + "\");");
+                    If("", contenido, false);
                     Escribe("}");
                 }
             }
@@ -193,19 +181,24 @@ namespace Generador
             lenguaje.WriteLine(instruccion);
         }
 
-        private void If()
+        private void If(string cadena = "", string contenido = "", bool bandera = true)
         {
-            if (esClasificacion(getContenido()))
-                Escribe("if (getClasificacion() == clasificaciones." + getContenido() + ")");
-            else
-                Escribe("if (getContenido() == \"" + getContenido() + "\")");
-            Escribe("{");
+            if (contenido == "")
+                contenido = getContenido();
 
-            if (esClasificacion(getContenido()))
-                Escribe("match(clasificaciones." + getContenido() + ");");
+            if (bandera)
+            {
+                if (esClasificacion(contenido))
+                    Escribe(cadena + "if (getClasificacion() == clasificaciones." + contenido + ")");
+                else
+                    Escribe(cadena + "if (getContenido() == \"" + contenido + "\")");
+                Escribe("{");
+            }
+
+            if (esClasificacion(contenido))
+                Escribe("match(clasificaciones." + contenido + ");");
             else
-                Escribe("match(\"" + getContenido() + "\");");
-            match(clasificaciones.st);
+                Escribe("match(\"" + contenido + "\");");
         }
     }
 }

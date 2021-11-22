@@ -156,14 +156,14 @@ namespace Generador
                 }
             }
             setContenido(palabra);
-            
+
             if (estado == E)
             {
                 throw new Error(bitacora, "Error lexico: Se esperaba un cierre de comentario (*/). Linea: " + linea + ", caracter:" + caracter);
             }
             else if (getClasificacion() == clasificaciones.snt)
             {
-                if(!char.IsUpper(getContenido()[0]))
+                if (!char.IsUpper(getContenido()[0]))
                 {
                     setClasificacion(clasificaciones.st);
                 }
@@ -221,67 +221,67 @@ namespace Generador
         private int columna(char t)
         {
             //WS, L, -, >, \, ;, ?, (, ), |, LA
-            if(finArchivo())
+            if (finArchivo())
             {
                 return 13;
             }
-            else if(t == 10)
+            else if (t == 10)
             {
                 return 14;
             }
-            else if(char.IsWhiteSpace(t))
+            else if (char.IsWhiteSpace(t))
             {
                 return 0;
             }
-            else if(char.IsLetter(t))
+            else if (char.IsLetter(t))
             {
                 return 1;
             }
-            else if(t == '-')
+            else if (t == '-')
             {
                 return 2;
             }
-            else if(t == '>')
+            else if (t == '>')
             {
                 return 3;
             }
-            else if(t == '\\')
+            else if (t == '\\')
             {
                 return 4;
             }
-            else if(t == ';')
+            else if (t == ';')
             {
                 return 5;
             }
-            else if(t == '?')
+            else if (t == '?')
             {
                 return 6;
             }
-            else if(t == '(')
+            else if (t == '(')
             {
                 return 7;
             }
-            else if(t == ')')
+            else if (t == ')')
             {
                 return 8;
             }
-            else if(t == '|')
+            else if (t == '|')
             {
                 return 9;
             }
-            else if(t == '/')
+            else if (t == '/')
             {
                 return 11;
             }
-            else if(t == '*')
+            else if (t == '*')
             {
                 return 12;
             }
-            else if(t == '[')
+            else if (t == '[')
             {
                 return 15;
             }
-            else if(t == ']')
+            else if (t == ']')
             {
                 return 16;
             }
